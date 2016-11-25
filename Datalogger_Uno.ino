@@ -1,24 +1,3 @@
-/*
-  SD card datalogger
-
-  This example shows how to log data from three analog sensors
-  to an SD card using the SD library.
-
-  The circuit:
-   analog sensors on analog ins 0, 1, and 2
-   SD card attached to SPI bus as follows:
- ** MOSI - pin 11
- ** MISO - pin 12
- ** CLK - pin 13
- ** CS - pin 4
-
-  created  24 Nov 2010
-  modified 9 Apr 2012
-  by Tom Igoe
-
-  This example code is in the public domain.
-
-*/
 
 #include <SPI.h>
 #include <SD.h>
@@ -51,12 +30,12 @@ void setup() {
 
 void loop() {
   DateTime now = rtc.now();
-  delay(5000);
+  delay(5000); // You can replace the delay with the amount you need. Be mindful of te fact that it will be in milliseconds.
   // make a string for assembling the data to log:
   String dataString = "";
 
   // read three sensors and append to the string:
-
+  int analogPin = 0; // 0 here is just arbitary pin number. You need to replace this with your own analog pin number.
   int sensor = analogRead(0);
   dataString = String(sensor);
 
@@ -64,10 +43,8 @@ void loop() {
 
 
 
-  // open the file. note that only one file can be open at a time,
-  // so you have to close this one before opening another.
 
-  File dataFile = SD.open("datalog.txt", FILE_WRITE);
+  File dataFile = SD.open("datalog.txt", FILE_WRITE); //be mindful of the fact that "datalog.txt" is the filename of the TXT file you want to log the data into. It needs to be created before you begin the long.
 
   // if the file is available, write to it:
   if (dataFile ) {
